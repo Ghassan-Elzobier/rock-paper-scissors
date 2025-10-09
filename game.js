@@ -1,3 +1,6 @@
+humanScore = 0;
+playerScore = 0;
+
 const getComputerChoice = () => {
   // Get a random choice of 0, 1, or 2
   let randomChoice = Math.floor(Math.random() * 3);
@@ -11,4 +14,10 @@ const getComputerChoice = () => {
   }
 };
 
-console.log(getComputerChoice());
+const getHumanChoice = () => {
+  // Get choice from user
+  let choice = prompt("Enter rock, paper or scissors");
+  return choice;
+};
+
+console.log(getComputerChoice(), getHumanChoice());
