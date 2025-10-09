@@ -1,6 +1,3 @@
-humanScore = 0;
-computerScore = 0;
-
 const getComputerChoice = () => {
   // Get a random choice of 0, 1, or 2
   let randomChoice = Math.floor(Math.random() * 3);
@@ -39,10 +36,20 @@ function playRound(humanChoice, computerChoice) {
   } else if (humanChoice == "scissors" && computerChoice == "paper") {
     console.log("You win! Scissors beats paper!");
     humanScore += 1;
+  } else {
+    console.log("You draw!");
   }
 }
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
-
-playRound(humanSelection, computerSelection);
+function playGame() {
+  const humanScore = 0;
+  const computerScore = 0;
+  const humanSelection = getHumanChoice();
+  const computerSelection = getComputerChoice();
+  for (let i = 0; i < 5; i++) {
+    playRound(humanSelection, computerSelection);
+    console.log(
+      `Your Score is ${humanScore} and the computer score is ${computerScore}`
+    );
+  }
+}
