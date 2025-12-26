@@ -24,65 +24,60 @@ const getHumanChoice = () => {
   return choice;
 };
 
-function playRound(humanChoice, computerChoice, humanScore, computerScore) {
-  let winner = "";
+let humanScore = 0;
+let computerScore = 0;
+
+function playRound(humanChoice, computerChoice) {
   if (humanChoice == "rock" && computerChoice == "paper") {
     results.textContent = "You lose! Paper beats Rock!";
-    return (winner = "computer");
+    computerScore++;
   } else if (humanChoice == "rock" && computerChoice == "scissors") {
     results.textContent = "You win! Rock beats Scissors!";
-    return (winner = "human");
+    humanScore++;
   } else if (humanChoice == "paper" && computerChoice == "rock") {
     results.textContent = "You win! Paper beats Rock!";
-    return (winner = "human");
+    humanScore++;
   } else if (humanChoice == "paper" && computerChoice == "scissors") {
     results.textContent = "You lose! Scissors beats Paper!";
-    return (winner = "computer");
+    computerScore++;
   } else if (humanChoice == "scissors" && computerChoice == "rock") {
     results.textContent = "You lose! Rock beats Scissors!";
-    return (winner = "computer");
+    computerScore++;
   } else if (humanChoice == "scissors" && computerChoice == "paper") {
     results.textContent = "You win! Scissors beats paper!";
-    return (winner = "human");
+    humanScore++;
   } else {
     results.textContent = "You draw!";
-    return (winner = "draw");
   }
-}
-
-function calculateScore(humanScore, computerScore, winner) {
-  if (winner == "human") {
-    humanScore += 1;
-  }
-  if (winner == "computer") {
-    computerScore += 1;
-  }
-  score.textContent = `Your Score: ${humanScore}    Computer Score: ${computerScore}`;
 }
 
 function playGame() {
-  let humanScore = 0;
-  let computerScore = 0;
+  buttons.addEventListener("click", (event) => {
+    let target = event.target;
 
-  // buttons.addEventListener("click", (event) =>{
-  //   let target = event.target
+    switch (target.id) {
+      case "rock":
+        playRound("rock", getComputerChoice());
+        break;
+      case "paper":
+        playRound("paper", getComputerChoice());
+        break;
+      case "scissors":
+        playRound("scissors", getComputerChoice());
+        break;
+    }
 
-  // })
-
-  rockButton.addEventListener("click", () => {
-    let computerChoice = getComputerChoice();
-    winner = playRound("rock", computerChoice);
-    calculateScore(humanScore, computerScore, winner);
-  });
-  paperButton.addEventListener("click", () => {
-    let computerChoice = getComputerChoice();
-    winner = playRound("paper", computerChoice);
-    calculateScore(humanScore, computerScore, winner);
-  });
-  scissorsButton.addEventListener("click", () => {
-    let computerChoice = getComputerChoice();
-    winner = playRound("scissors", computerChoice);
-    calculateScore(humanScore, computerScore, winner);
+    if (humanScore == 5) {
+      score.textContent = "Congrats you were the first to five!";
+      humanScore = 0;
+      computerScore = 0;
+    } else if (computerScore == 5) {
+      score.textContent = "The computer was first to five, try again!";
+      humanScore = 0;
+      computerScore = 0;
+    } else {
+      score.textContent = `Your Score: ${humanScore}    Computer Score: ${computerScore}`;
+    }
   });
 }
 
